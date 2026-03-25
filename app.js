@@ -46,7 +46,7 @@ const crud = {
 
         removeItem: privateClient.remove.bind(privateClient),
 
-        getAllItems: () => privateClient.getAll('', false),
+        getListing: path => privateClient.getListing(path),
       },
     };
   },
@@ -104,16 +104,19 @@ const view = {
 
   _renderDB: input => document.querySelector('pre').innerHTML = yamlify(input, null, ' '),
 
-  renderItems: () => api.crud.getAllItems().then(items => {
+  renderItems: () => api.crud.getListing('').then(listing => {
     document.querySelector('ul').innerHTML = '';
 
-    Object.entries(items).forEach(([parent, value]) => {
-      Object.entries(value).forEach(([child, value]) => {
+    Object.entries(listing).forEach(async ([parent, value]) => {
+      if (!value)
+        return
+
+      Object.entries(await api.crud.getListing(parent)).forEach(([child, value]) => {
         if (!value)
           return
 
         const id = parent + child;
-        api.crud.getItem(id).then(object => view.renderItem(id, object))
+        api.crud.getItem(id).then(object => view.renderItem(id, object));
       });
     });
   }),
