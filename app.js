@@ -1,4 +1,26 @@
 const rid = () => Math.random().toString(36).slice(2);
+function yamlify (obj, indent = 0) {
+  const spaces = ' '.repeat(indent);
+  const size = 2;
+
+  if (obj === null)
+    return 'null';
+  
+  if (typeof obj !== 'object')
+    return JSON.stringify(obj);
+  
+  if (Array.isArray(obj))
+    return obj.map(item => `${ spaces }--- \n${ yamlify(item, indent + size) }`).join('\n');
+
+  return Object.entries(obj).map(([key, val]) => {
+    const _key = `${ spaces }${ key }:`;
+    
+    if (typeof val === 'object' && val !== null)
+      return `${ _key }\n${ yamlify(val, indent + size) }`;
+    
+    return `${ _key } ${ JSON.stringify(val) }`;
+  }).join('\n');
+};
 
 // remoteStorage module
 const crud = {
@@ -80,7 +102,7 @@ const view = {
     onerror: view._renderDB,
   }),
 
-  _renderDB: input => document.querySelector('pre').innerHTML = JSON.stringify(input, null, ' '),
+  _renderDB: input => document.querySelector('pre').innerHTML = yamlify(input, null, ' '),
 
   renderItems: () => api.crud.getAllItems().then(items => {
     document.querySelector('ul').innerHTML = '';
