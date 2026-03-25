@@ -129,7 +129,7 @@ const view = {
       document.querySelector('ul').appendChild(li);
     }
 
-    li.innerHTML += `<span style="opacity: 0.5">${ id }</span> ${ object.name } <button class="destructive">delete</button>`;
+    li.innerHTML += `<span>${ id }</span> ${ object.name } <button class="destructive">delete</button>`;
     
     li.querySelector('button').onclick = event => {
       event.preventDefault();
