@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>rs-cache-repro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/remotestoragejs@latest/release/remotestorage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/remotestorage-widget@latest/build/widget.js"></script>
+<script src="app.js"></script>
+<style>
+	body, button {
+		font-family: monospace;
+	}
+
+	pre {
+		padding: 8px;
+		background: #f3f3f3;
+		font-size: 80%;
+	}
+
+	.destructive {
+		font-size: 90%;
+		padding: 3px;
+		background: #f8c6c6;
+		border: none;
+	}
+</style>
+
+</head>
+<body>
+	
+<header>
+	<strong>rs-cache-repro</strong>
+	<br>
+	<small>tries to reproduce sync/cache issue</small>
+	<widget-wrapper></widget-wrapper>
+</header>
+
+<button id="add">Add</button>
+
+<ul></ul>
+
+<pre></pre>
+
+<button id="reset" class="destructive">Destroy DB</button>
+	
+</body>
+</html>
