@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('add').onclick = event => {
       event.preventDefault();
 
-      api.crud.addItem({ name: parseInt(rid()).toString(36) });
+      api.crud.addItem({ name: 'c' + parseInt(rid()).toString(36) });
     };
 
     document.getElementById('direct').onclick = event => {
